@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <string.h>
 #include <errno.h>
+#include <time.h>
 
 #define WIDTH 1920
 #define HEIGHT 1080
@@ -101,14 +102,11 @@ void save_image_as_ppm(const char *file_path)
 
 int main()
 {
-	#if 0
-	Dot d = {.pX = WIDTH/2,
-			 .pY = HEIGHT/2};
-	#endif
-	fill_image(COLOUR_BLACK);
+	srand(time(NULL));
+	Colour32 t = (Colour32) rand();
 	for(int i = 0; i < HEIGHT; i++)
 		for(int j = 0; j < WIDTH; j++)
-			image[i][j] = (COLOUR_GREEN + i) & (COLOUR_RED + j);
+			image[i][j] = (t + i) | (COLOUR_RED + j);
 
 
 	save_image_as_ppm(OUTPUT_FILE_PATH);
